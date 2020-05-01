@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Halaman Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	#atur{
+		margin-top: 20px;
+		margin-bottom:20px;
+	}
+</style>
+<script>
+	// $( document ).ready(function() {
+	// 	$("#masuk").click(function(){
+	// 		var nim=$("#nim").val();
+	// 		var password=$("#password").val();
+	// 		console.log(nim);
+
+	// 		$.ajax({
+	// 			method: "POST",
+	// 			url: 'http://192.168.0.100/siam/index.php/webservice/getdatalogin',
+	// 			dataType: 'json',
+ //              //console.log(sessionStorage.getItem('ipserver'));
+ //              //beforeSend: function(){ $("#login").html('Connecting...');},
+ //              //data: { nim: nim, password: password }
+ //          }).done(function( data ) {
+ //          	console.log(data);
+ //          	$.each(data, function(key, value){
+ //          		//document.write(value.nim);
+ //          		if (nim == value.nim && password == value.password) {
+ //          			alert("login success");
+ //          		} else{
+ //          			alert("login fail")
+ //          		}
+ //          	} );
+
+ //      });
+	// }); });
+
+	// $(document).ready(function(){
+	// 	//$("#masuk").click(function(){
+
+	// 		var nim=$("#nim").val();
+	// 		var password=$("#password").val();
+	// 		var success = false;
+	// 		$.ajax({
+	// 		//method: "post",
+	// 		url: "http://127.0.0.1/siam/index.php/webservice/getdatalogin"})
+	// 		.done(function(data){
+	// 			//alert(data);
+	// 			var obj = JSON.parse(data);
+	// 			var i; 
+
+	// 			//console.log(obj.length);
+	// 			for (i = 0; i < obj.length; i++) {
+	// 				if(obj[i].nim == nim && obj[i].password == password){
+	// 					success = true;
+	// 				} 
+	// 			}
+	// 			if(success == true){
+	// 				alert("success");
+	// 			} else {
+	// 				alert("fail");
+	// 			}
+
+	// 		//});
+	// 	});
+	// 	});
+	// $(document).ready(function(){
+	// 	$.ajax({
+	// 		$.post(
+
+	// 			var nim=$("#nim").val();
+	// 			var password=$("#password").val();
+
+	// 			"http://127.0.0.1/siam/index.php/webservice/login",
+
+	// 			{nim: nim, password: password},
+
+	// 			function(result){
+	// 				alert("kuy");
+	// 			});
+	// 	});
+	// });
+// $(document).ready(function(){
+// 	$("#masuk").click(function(){
+// 		var nim=$("#nim").val();
+// 	 		var password=$("#password").val();
+// 	 		alert(nim);
+// 	 		alert(password);
+//     $.post("http://127.0.0.1/siam/index.php/webservice/login",
+//     {
+//         nim: nim,
+//         password: password
+//     },
+//     function(data){
+//         alert("Data: " + data);
+//     });
+// });
+// });
+
+$(document).ready(function(){
+	$("#masuk").click(function(){
+		$.ajax({
+			url: "http://"+sessionStorage.getItem('ip_server')+"/siam/index.php/webservice/login", 
+			type: 'POST', 
+			data: {nim: $("#nim").val(), password: $("#password").val()}, 
+			success: function(result){
+				var obj = JSON.parse(result);
+     			//console.log(obj.status);
+     			if(obj.status == "sukses"){
+     				alert("Login Berhasil!");
+     				window.location = "home.html";
+     				sessionStorage.setItem('nim',$("#nim").val());
+     			}else{
+     				alert("Login Gagal!");
+     			}
+     		}
+     	})
+	});
+});
+
+
+</script>
+</head>
+<body>
+	<div class="container text-center" id="atur">
+		<img src="logo-siam.png" style="margin-bottom: 20px;">
+		
+		<div class="form-group">
+			<input type="text" class="form-control" id="nim" placeholder="nim" name="nim">
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control" id="password" placeholder="password" name="password">
+		</div>
+
+		<button class="form-control btn btn-primary" id="masuk" name="masuk">Masuk</button>	
+		
+	</div>
+	
+</body>
+</html>

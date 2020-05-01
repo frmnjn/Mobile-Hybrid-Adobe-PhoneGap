@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	#atur{
+		margin-top: 20px;
+		margin-bottom:20px;
+	}
+</style>
+<script>
+
+	$( document ).ready(function() {
+         $("#masuk").click(function(){
+         	var ipserver=$("#ip_server").val();
+         	sessionStorage.setItem('ip_server', ipserver);
+            //window.location = "http://"+sessionStorage.getItem('ip_server')+"/siam_mobile/login_siam.html";
+            window.location.href = "login_siam.html";
+      });
+     });
+
+
+</script>
+</head>
+<body>
+	<div class="container text-center" id="atur">
+		<img src="logo-siam.png" style="margin-bottom: 20px;">
+		
+		<div class="form-group">
+			<h3>Masukkan IP Server</h3>
+			<input type="text" class="form-control" id="ip_server" placeholder="IP Server" name="ip_server" autocomplete="false">
+		</div>
+
+		<button class="form-control btn btn-primary" id="masuk" name="masuk">Submit</button>	
+		
+	</div>
+	
+</body>
+</html>

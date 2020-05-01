@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Usaha</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	#atur{
+		margin-top: 20px;
+		margin-bottom:20px;
+	}
+</style>
+<script>
+
+	$(document).ready(function(){
+		document.getElementById("back").href = "wirausaha.html";
+		$("#tambah").click(function(){
+			var jenis_usaha = "asd";
+			//console.log(document.getElementById("radio_online").checked);
+			if(document.getElementById("radio_online").checked == true){
+				jenis_usaha = document.getElementById("radio_online").value;
+			} else{
+				if(document.getElementById("radio_offline").checked == true){
+					jenis_usaha = document.getElementById("radio_offline").value;
+				}
+			}
+			console.log(jenis_usaha);
+			$.ajax({
+				url: "http://"+sessionStorage.getItem('ip_server')+"/siam/index.php/webservice/create_usaha", 
+				type: 'POST', 
+				data: {
+					nim: sessionStorage.getItem('nim'), 
+					nama_usaha: $("#nama_usaha").val(), 
+					bidang_usaha: $("#bidang_usaha").val(), 
+					jenis_usaha: jenis_usaha,
+					mulai_usaha: $("#mulai_usaha").val()}, 
+					success: function(result){
+						if (result == "sukses") {
+							alert("Tambah Usaha Berhasil");
+							window.location = "wirausaha.html";
+						}
+     			
+     		}
+     	})
+		});
+	});
+
+</script>
+</head>
+<body>
+	<div class="container" id="atur">
+		<img src="logo-siam.png" style="margin-bottom: 20px;">
+		<div style="margin-bottom: 20px;">
+			<a href="" class="btn btn-primary" role="button" id="back">Back</a>
+		</div>
+		<h3>Tambah Usaha</h3>
+		
+		<div class="form-group">
+			<input type="text" class="form-control" id="nama_usaha" placeholder="Nama Usaha" name="nama_usaha">
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" id="bidang_usaha" placeholder="Bidang Usaha" name="bidang_usaha">
+		</div>
+		<div class="form-group">
+			<label class="radio-inline">
+				<input type="radio" name="jenis_usaha" id="radio_online" value="Online"> Online
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="jenis_usaha" id="radio_offline" value="Offline"> Offline
+			</div>
+			<div class="form-group">
+				<input type="number" class="form-control" id="mulai_usaha" placeholder="Mulai Usaha" name="mulai_usaha">
+			</div>
+
+			<button class="form-control btn btn-success" id="tambah" name="tambah">Tambah</button>	
+		</div>
+
+	</body>
+	</html>

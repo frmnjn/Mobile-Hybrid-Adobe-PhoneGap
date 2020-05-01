@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Update Usaha</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.js"></script>
+	
+	<style type="text/css">
+	#atur{
+		margin-top: 20px;
+		margin-bottom:20px;
+	}
+</style>
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		document.getElementById("home").href = "wirausaha.html";
+		//document.getElementById("hapus").href = "http://"+getCookie('ip_server')+"/siam_mobile/create_wirausaha.html";
+
+		$.ajax({
+			url:  "http://"+sessionStorage.getItem('ip_server')+"/siam/index.php/webservice/getdata_wirausaha", 
+			type: 'POST', 
+			data: {nim:  sessionStorage.getItem('nim')}, 
+			success: function(result){
+				obj = JSON.parse(result);
+
+				$(function () {
+					$('#table').bootstrapTable({
+						data: obj
+					});
+				});
+				
+				
+			}
+		})
+	});
+
+	
+	
+
+</script>
+</head>
+<body>
+	<div class="container" id="atur">
+		<img src="logo-siam.png" style="margin-bottom: 20px;">
+		<h3>List Usaha</h3>
+		<a href="" class="btn btn-primary" role="button" id="home" style="margin-bottom: 10px;">Back</a><br>
+		<div id="toolbar">
+			<button id="update" class="btn btn-danger">Update</button>
+		</div>
+
+		<table id="table"
+		data-toolbar="#toolbar"  data-click-to-select="true">
+		<thead>
+			<tr>
+				<th data-field="state" data-checkbox="true"></th>
+				<th data-field="ID_Usaha" data-visible="false">ID Usaha</th>
+				<th data-field="nama_usaha">Nama</th>
+				<th data-field="bidang_usaha">Bidang</th>
+				<th data-field="jenis_usaha">Jenis</th>
+				<th data-field="mulai_usaha">Mulai</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+<script>
+	var $table = $('#table'),
+	$button = $('#update');
+	$(function () {
+        $button.click(function () {
+            var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+            	sessionStorage.setItem('ID_Usaha_pengen_diupdate',row.ID_Usaha);
+                window.location = "update_wirausaha_view.html";
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>

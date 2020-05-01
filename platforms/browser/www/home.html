@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	#atur{
+		margin-top: 20px;
+		margin-bottom:20px;
+	}
+
+	#keluar{
+		font-size: 17px;
+		font-weight: bold;
+		color: rgb(255, 51, 0);
+	}
+</style>
+<script>
+
+	$(document).ready(function(){
+		document.getElementById("wirausaha").href = "wirausaha.html";
+		document.getElementById("keluar").href = "login_siam.html";
+		$.ajax({
+			url:  "http://"+sessionStorage.getItem('ip_server')+"/siam/index.php/webservice/getdata_mahasiswa", 
+			type: 'POST', 
+			data: {nim:  sessionStorage.getItem('nim')}, 
+			success: function(result){
+				var obj = JSON.parse(result);
+				document.getElementById("foto").src = "http://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim="+sessionStorage.getItem('nim')+"&key=MzIxZm90b3V5ZTEyMysyMDE3LTEyLTE0IDExOjI1OjQ5";
+				document.getElementById("nim").innerHTML = obj[0].nim;
+				document.getElementById("nama").innerHTML = obj[0].nama;
+				document.getElementById("jenjang_fakultas").innerHTML = "Jenjang/Fakultas : "+obj[0].jenjang_fakultas;
+				document.getElementById("jurusan").innerHTML = "Jurusan : "+obj[0].jurusan;
+				document.getElementById("prodi").innerHTML = "Prodi : "+obj[0].prodi;
+				document.getElementById("seleksi").innerHTML = "Seleksi : "+obj[0].seleksi;
+			}
+		})
+	});
+
+</script>
+</head>
+<body>
+	<div class="container" id="atur">
+		<img src="logo-siam.png" style="margin-bottom: 20px;"><br>
+		<img id="foto" style="margin-bottom: 20px;"><br>
+		<a href="" id="keluar">LOG OUT</a>
+		<h4 id="nim" style="color: green;"></h4>
+		<h4 id="nama" style=" font-weight: bold;"></h4>
+		<p id="jenjang_fakultas"></p>
+		<p id="jurusan"></p>
+		<p id="prodi"></p>
+		<p id="seleksi"></p>
+
+		<a href="#" class="form-control btn btn-primary" role="button" id="wirausaha">Wirausaha</a>
+
+		
+	</div>
+	
+</body>
+</html>
